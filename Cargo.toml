@@ -1,0 +1,40 @@
+[package]
+authors = ["Michael Edelman <michael@svelteup.io>"]
+edition = "2021"
+name = "graphql-handler-lambda"
+version = "1.0.0"
+
+[dependencies]
+async-graphql = "3.0.21"
+async-graphql-axum = "3.0.21"
+async-trait = "0.1.52"
+axum = {version = "0.4.3", features = ["ws", "headers"]}
+futures-util = "0.3.19"
+hyper = "0.14.16"
+lambda-web = {version = "0.1.8", features = ["hyper"]}
+
+serde = {version = "1.0", features = ["derive"]}
+serde_json = "1.0.74"
+serde_urlencoded = "0.7.0"
+
+tokio = {version = "1.0", features = ["macros", "rt-multi-thread"]}
+
+[dev-dependencies]
+
+[profile.release]
+codegen-units = 1
+incremental = false
+lto = "thin"
+opt-level = 'z'
+panic = 'abort'
+
+[profile.dev]
+opt-level = 3
+
+[[bin]]
+name = "bootstrap"
+path = "service/src/main.rs"
+
+[lib]
+name = "lib"
+path = "service/src/lib.rs"
