@@ -1,13 +1,11 @@
-use async_graphql::{EmptyMutation, EmptySubscription, Schema};
-use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
-use axum::extract::Extension;
+pub use error::Error;
+pub use models::{customer::{Customer, CustomerRange}};
 
-use crate::schema::ServiceSchema;
+pub mod domain;
+pub mod entrypoints;
+mod error;
+mod models;
+pub mod store;
+pub mod utils;
+pub mod graphql;
 
-pub mod model;
-pub mod schema;
-mod store;
-
-pub async fn graphql_handler(schema: Extension<ServiceSchema>, req: GraphQLRequest) -> GraphQLResponse {
-    schema.execute(req.into_inner()).await.into()
-}

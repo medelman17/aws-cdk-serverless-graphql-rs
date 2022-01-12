@@ -14,6 +14,8 @@ SCCACHE_RELEASE_INFO_URL="$GITHUB_API_REPOS_BASE_URL/mozilla/sccache/releases/la
 SCCACHE_DOWNLOAD_DIR="$TEMP_DIR/sccache"
 SCCACHE_BINARY=""
 
+export CC_aarch64_unknown_linux_musl="$LINKER"
+
 ## Clean and ensure necessary directory structure
 
 rm -rf $TEMP_DIR
@@ -81,5 +83,7 @@ for CONFIG in $(find . -maxdepth 2 -name Cargo.toml); do
         --target-dir $TARGET_DIR
 
     rm -rf "$ASSET_DIR" && mkdir -p "$ASSET_DIR"
-    zip "$ASSET_DIR/lambda.zip" "$TARGET_DIR/$TARGET_ARCHITECTURE/release/bootstrap"
+    cd "$TARGET_DIR/$TARGET_ARCHITECTURE/release" || exit
+    zip -r -X "./lambda.zip" "./bootstrap"
+    cp "lambda.zip" "$ASSET_DIR"
 done
