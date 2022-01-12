@@ -951,7 +951,6 @@ dependencies = [
  "futures-util",
  "hyper",
  "lambda-web",
- "rand",
  "serde",
  "serde_json",
  "serde_urlencoded",

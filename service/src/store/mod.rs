@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use aws_sdk_dynamodb::output::ScanOutput;
 
 pub use dynamodb::DynamoDBStore;
 

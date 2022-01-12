@@ -1,7 +1,7 @@
 use std::net::SocketAddr;
 
-use axum::{AddExtensionLayer, Router, routing::get};
-use lambda_web::{is_running_on_lambda, LambdaError, run_hyper_on_lambda};
+use axum::{routing::get, AddExtensionLayer, Router};
+use lambda_web::{is_running_on_lambda, run_hyper_on_lambda, LambdaError};
 use tracing::info;
 
 use lib::{entrypoints, graphql, utils};
@@ -12,8 +12,9 @@ async fn main() -> Result<(), LambdaError> {
 
     let schema = graphql::schema::init().await;
     let app = Router::new()
-        .route("/", get(entrypoints::graphql::playground)
-            .post(entrypoints::graphql::handler),
+        .route(
+            "/",
+            get(entrypoints::graphql::playground).post(entrypoints::graphql::handler),
         )
         .layer(AddExtensionLayer::new(schema));
 
@@ -29,5 +30,3 @@ async fn main() -> Result<(), LambdaError> {
     }
     Ok(())
 }
-
-

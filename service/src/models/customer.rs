@@ -1,4 +1,4 @@
-use async_graphql::{ID, Object};
+use async_graphql::{ID, Object, };
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
@@ -13,6 +13,38 @@ pub struct Customer {
     // telephone: String,
     // tax_id: Option<String>,
 }
+
+// #[derive(Debug, Default, Deserialize, Serialize)]
+// pub struct PaginatedCustomerList {
+//
+// }
+//
+// #[derive(Debug, Default, Deserialize, Serialize)]
+// pub struct Edge {
+//     cursor: String
+// }
+//
+// #[derive(Debug, Default, Deserialize, Serialize)]
+// pub struct PageInfo {
+//     end_cursor: Option<String>,
+//     has_next_page: bool,
+//     has_previous_page: bool,
+//     start_cursor: Option<String>
+// }
+//
+// #[derive(Debug, Default, Deserialize, Serialize)]
+// pub struct ConnectionData<T> {
+//     page_info: PageInfo,
+//     edges
+//
+// }
+//
+//
+//
+// #[Object]
+// impl PaginatedCustomerList {
+//     page_info: PageInfo
+// }
 
 #[derive(Debug, Default, Deserialize, Serialize)]
 pub struct CustomerRange {

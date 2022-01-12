@@ -49,6 +49,9 @@ impl<C> StoreGetAll for DynamoDBStore<C>
 
         let res = req.send().await?;
 
+        println!("   {:?}", res.clone());
+
+
         let customers = match res.items {
             Some(items) => items
                 .into_iter()
