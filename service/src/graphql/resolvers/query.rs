@@ -14,9 +14,9 @@ pub struct QueryRoot;
 
 #[Object]
 impl QueryRoot {
-    async fn customer_by_id<'a>(&self, _ctx: &'a Context<'_>) -> Result<Option<Customer>, E> {
+    async fn customer_by_id<'a>(&self, id: String) -> Result<Option<Customer>, E> {
         let store = utils::get_store().await;
-        let customer = domain::get_customer(&store, "12345").await.unwrap();
+        let customer = domain::get_customer(&store, &id).await.unwrap();
         Ok(customer)
     }
 
