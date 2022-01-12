@@ -51,5 +51,6 @@ target
 !/.github/workflows/upgrade-main.yml
 assets
 .tmp
-.env
+.env.local
 schema.graphql
+.env.local!/.env.local

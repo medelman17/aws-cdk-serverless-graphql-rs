@@ -1,0 +1,14 @@
+type Customer {
+	id: String!
+	givenName: String!
+}
+type MutationRoot {
+	createCustomer: String!
+}
+type QueryRoot {
+	customerById(id: String!): Customer
+}
+schema {
+	query: QueryRoot
+	mutation: MutationRoot
+}

@@ -15,6 +15,10 @@ SCCACHE_DOWNLOAD_DIR="$TEMP_DIR/sccache"
 SCCACHE_BINARY=""
 
 export CC_aarch64_unknown_linux_musl="$LINKER"
+#export OPENSSL_DIR="/opt/homebrew/etc/openssl@3"
+#export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+#  export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+#  export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 
 ## Clean and ensure necessary directory structure
 
@@ -64,7 +68,7 @@ cd "$SCCACHE_DOWNLOAD_DIR" || exit
 curl -s "$SCCACHE_RELEASE_INFO_URL" | jq -r ".assets[] | select(.name | contains(\"$SCCACHE_BINARY\")) | .browser_download_url" | wget -q -i -
 tar -xf "$SCCACHE_DOWNLOAD_DIR/$SCCACHE_BINARY.tar.gz"
 mv $SCCACHE_BINARY/* "$BIN_DIR" && chmod +x $BIN_DIR/*
-export RUSTC_WRAPPER="$BIN_DIR/sccache"
+export RUSTC_WRAPPER=""
 cd "$WORK_DIR" || exit
 rm -rf "$SCCACHE_DOWNLOAD_DIR"
 

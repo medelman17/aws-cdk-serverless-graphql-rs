@@ -7,24 +7,30 @@ version = "1.0.0"
 [dependencies]
 async-graphql = "3.0.21"
 async-graphql-axum = "3.0.21"
+async-graphql-extension-apollo-tracing = { version = "2.1.0", features = ["tokio-comp"] }
 async-trait = "0.1.52"
 aws-config = "0.4.1"
 aws-sdk-dynamodb = "0.4.1"
 axum = { version = "0.4.3", features = ["ws", "headers"] }
-futures-util = "0.3.19"
+#futures-util = "0.3.19"
 hyper = "0.14.16"
 lambda-web = { version = "0.1.8", features = ["hyper"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.74"
-serde_urlencoded = "0.7.0"
-tokio = { version = "1.0", features = ["full"] }
-tokio-stream = "0.1.8"
+#serde_urlencoded = "0.7.0"
+tokio = { version = "1.15.0", features = ["full"] }
+#tokio-stream = "0.1.8"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3.5", features = ["fmt", "json", "env-filter"] }
 ulid = "0.5.0"
 aws-smithy-client = { version = "0.34", features = ["test-util"] }
 aws-smithy-http = "0.34"
 aws-types = "0.4"
+dotenv = "0.15.0"
+libc = "0.2.0"
+
+
+
 
 [dependencies.structopt]
 default-features = false
@@ -49,6 +55,10 @@ path = "service/src/main.rs"
 #[[bin]]
 #name = "scratch"
 #path = "service/src/bin/scratch.rs"
+
+#[[bin]]
+#name = "export_sdl"
+#path = "service/src/bin/export_sdl.rs"
 
 [lib]
 name = "lib"

@@ -8,4 +8,5 @@ mod models;
 pub mod store;
 pub mod utils;
 pub mod graphql;
+pub mod config;
 

@@ -1,12 +1,18 @@
 use std::collections::HashMap;
 
+use async_graphql::{EmptySubscription, extensions, Schema};
 use aws_sdk_dynamodb::model::AttributeValue;
 use serde_json::Value;
 use tracing::{info, instrument};
 use tracing_subscriber;
 use ulid::Ulid;
 
-use crate::store;
+use crate::{
+    graphql::resolvers::{
+        mutation::MutationRoot, query::QueryRoot,
+    }, graphql::schema::GraphQLServiceSchema,
+    store};
+pub use crate::graphql::schema::get_schema;
 
 pub fn init_tracing() {
     let subscriber = tracing_subscriber::fmt()
@@ -47,3 +53,5 @@ pub async fn get_store() -> impl store::Store {
     let client = store::dynamodb::init_client(&config);
     store::DynamoDBStore::new(client, table_name)
 }
+
+
