@@ -1,6 +1,4 @@
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct ApolloTracingConfig {
     pub authorization_token: String,
     pub hostname: String,
@@ -16,20 +14,20 @@ pub struct ApolloTracingConfig {
 impl ApolloTracingConfig {
     pub fn new() -> Self {
         Self {
-            authorization_token: dotenv::var("APOLLO_KEY").unwrap_or("".to_string()),
-            hostname: dotenv::var("SERVICE_HOSTNAME").unwrap_or("".to_string()),
-            graph_ref: dotenv::var("APOLLO_GRAPH_REF").unwrap_or("".to_string()),
-            release_name: dotenv::var("APOLLO_SUBGRAPH_NAME").unwrap_or("".to_string()),
+            authorization_token: env!("APOLLO_KEY").to_string(),
+            hostname: env!("SERVICE_HOSTNAME").to_string(),
+            graph_ref: "gah".to_string(),
+            release_name: env!("APOLLO_SUBGRAPH_NAME").to_string(),
             batch_target: 10,
-            server_id: dotenv::var("SERVICE_ID").unwrap_or("".to_string()),
-            variant: dotenv::var("APOLLO_SUPER_GRAPH_VARIANT").unwrap_or("".to_string()),
-            user_version: dotenv::var("APOLLO_USER_VERSION").unwrap_or("".to_string()),
-            platform: dotenv::var("APOLLO_PLATFORM").unwrap_or("".to_string()),
+            server_id: env!("SERVICE_ID").to_string(),
+            variant: env!("APOLLO_SUPER_GRAPH_VARIANT").to_string(),
+            user_version: env!("APOLLO_USER_VERSION").to_string(),
+            platform: env!("APOLLO_PLATFORM").to_string(),
         }
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct SchemaInitConfig {
     pub apollo_studio: ApolloTracingConfig,
 }

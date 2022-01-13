@@ -1,10 +1,11 @@
-import { Stack, StackProps, CfnOutput } from "aws-cdk-lib";
+import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as apigateway from "@aws-cdk/aws-apigatewayv2-alpha";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as integrations from "@aws-cdk/aws-apigatewayv2-integrations-alpha";
 import * as iam from "aws-cdk-lib/aws-iam";
+
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export interface ServiceStackProps extends StackProps {
@@ -25,11 +26,11 @@ export class ServiceStack extends Stack {
       partitionKey: { name: "PK", type: dynamodb.AttributeType.STRING },
       sortKey: { name: "SK", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      encryption: dynamodb.TableEncryption.AWS_MANAGED,
+      encryption: dynamodb.TableEncryption.AWS_MANAGED
     });
 
     this.lambda_role = new iam.Role(this, "LambdaHandlerRole", {
-      assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
+      assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com")
     });
 
     this.lambda_role.addManagedPolicy(
@@ -45,10 +46,10 @@ export class ServiceStack extends Stack {
       tracing: lambda.Tracing.PASS_THROUGH,
       architecture: lambda.Architecture.ARM_64,
       role: this.lambda_role,
-      insightsVersion: lambda.LambdaInsightsVersion.VERSION_1_0_119_0,
+      // insightsVersion: lambda.LambdaInsightsVersion.VERSION_1_0_119_0,
       environment: {
-        TABLE_NAME: this.database.tableName,
-      },
+        TABLE_NAME: this.database.tableName
+      }
     });
 
     this.database.grantReadWriteData(this.lambda);
@@ -57,17 +58,17 @@ export class ServiceStack extends Stack {
       "GatewayIntegration",
       this.lambda,
       {
-        payloadFormatVersion: apigateway.PayloadFormatVersion.VERSION_2_0,
+        payloadFormatVersion: apigateway.PayloadFormatVersion.VERSION_2_0
       }
     );
 
     this.gateway = new apigateway.HttpApi(this, "ServiceHttpApi", {
       createDefaultStage: true,
-      defaultIntegration: this.gateway_integration,
+      defaultIntegration: this.gateway_integration
     });
 
     new CfnOutput(this, "ApiEndpoint", {
-      value: this.gateway.apiEndpoint,
+      value: this.gateway.apiEndpoint
     });
 
     new CfnOutput(this, "TableName", { value: this.database.tableName });

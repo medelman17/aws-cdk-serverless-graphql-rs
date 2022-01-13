@@ -17,11 +17,11 @@ async fn main() -> Result<(), LambdaError> {
     // std::env::set_var("APOLLO_USER_VERSION", git_hash);
 
 
-    if is_running_on_lambda() {
-        std::env::set_var("APOLLO_PLATFORM", "aws-lambda");
-    } else {
-        std::env::set_var("APOLLO_PLATFORM", "localhost");
-    }
+    // if is_running_on_lambda() {
+    //     std::env::set_var("APOLLO_PLATFORM", "aws-lambda");
+    // } else {
+    //     std::env::set_var("APOLLO_PLATFORM", "localhost");
+    // }
 
     let schema = graphql::schema::get_schema().await;
     let app = Router::new()
